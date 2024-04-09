@@ -1,0 +1,27 @@
+-- Create housing_facts_france table
+
+CREATE TABLE public.housing_facts_france (
+
+    code_geo TEXT,
+    nb_ventes_maison INT,
+    moy_prix_m2_maison NUMERIC,
+    med_prix_m2_maison NUMERIC,
+    nb_ventes_appartement INT,
+    moy_prix_m2_appartement NUMERIC,
+    med_prix_m2_appartement NUMERIC,
+    nb_ventes_local INT,
+    moy_prix_m2_local NUMERIC,
+    med_prix_m2_local NUMERIC,
+    nb_ventes_apt_maison INT,
+    moy_prix_m2_apt_maison NUMERIC,
+    med_prix_m2_apt_maison NUMERIC,
+    annee_mois TEXT, 
+    libelle_geo TEXT,
+    code_parent TEXT,
+    echelle_geo TEXT
+
+);
+
+ALTER TABLE public.housing_facts_france OWNER to postgres;
+
+DROP TABLE housing_facts_france

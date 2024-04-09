@@ -1,0 +1,82 @@
+/* Cleaning and formating data
+
+First, having a look at what our data looks like
+
+*/
+
+SELECT *
+FROM housing_facts_france
+LIMIT 100;
+
+
+/*The dataset has some limitations : libelle_geo contains departments, cities and towns
+
+ - code_parent contains different scales such as nation and department codes
+ - NULL values are present
+
+I used data from https://www.data.gouv.fr/fr/datasets/statistiques-dvf/
+
+Some outliers have been kept by the government agencies except for extremes to stay true to the realities of the market, so I am not going to remove more of them
+
+It is explained that the data shows the same sale several times on different scales (example one house sold will be prepresented on the city scale, council scale and french scale). 
+
+ FIRST STEP:
+
+ The scale I want is department, and I want one sale to be one entry (no duplicates)
+ I am also only interested in houses 
+ I want the column names to be in english
+
+*/
+
+SELECT 
+  libelle_geo AS department,
+  annee_mois AS year_month,
+  nb_ventes_maison as amount_houses_sold,
+  moy_prix_m2_maison as average_price_house
+FROM housing_facts_france
+WHERE 
+  moy_prix_m2_maison IS NOT NULL
+  AND echelle_geo = 'departement'
+LIMIT 300;
+
+
+
+/* Data still has hundreds of  thousands of rows, the task at hand requires to to show the total amount of sales per department per year
+and the average price of a sold house per year only for years 2018 - 2022 (5 year scale)
+*/
+
+SELECT 
+    SUBSTRING(year_month, 1, 4) AS year,
+    department,
+    ROUND(AVG(average_price_house), 2) AS average_price_per_year_department,
+    SUM(amount_houses_sold) AS total_houses_sold
+FROM (
+      SELECT 
+        department,
+        year_month,
+        amount_houses_sold,
+        average_price_house
+      FROM (
+            SELECT 
+              libelle_geo AS department,
+              annee_mois AS year_month,
+              nb_ventes_maison as amount_houses_sold,
+              moy_prix_m2_maison as average_price_house
+            FROM 
+              housing_facts_france
+            WHERE 
+              moy_prix_m2_maison IS NOT NULL
+              AND echelle_geo = 'departement'
+              )
+              )
+WHERE 
+    SUBSTRING(year_month, 1, 4) BETWEEN '2018' AND '2022'
+GROUP BY 
+    SUBSTRING(year_month, 1, 4),
+    department
+ORDER BY 
+    year, 
+    department
+
+-- I now have a much smaller table relevant for my business question that I am going to export as CSV
+-- And that I can use for further queries // with other tools than SQL

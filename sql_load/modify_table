@@ -1,0 +1,3 @@
+COPY public.housing_facts_france
+FROM 'D:/Documents/DataAnalysis/Housing_Market_France/csv_files/stats_dvf.csv'
+DELIMITER ',' CSV HEADER;
