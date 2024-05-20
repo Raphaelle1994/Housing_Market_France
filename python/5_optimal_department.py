@@ -149,7 +149,7 @@ departments_of_interest = sorted_departments.index.intersection(departments_2023
 departments_of_interest = [dep for dep in departments_of_interest if dep not in sorted_decreased_departments]                                           
 
 if not departments_2023_sorted[departments_2023_sorted['department'].isin(departments_of_interest)].empty:
-    print("The departments below the national average and with constant increase are:")
+    print("The departments below the national average, with constant increase since 2018 and predicted to be in the top 10 of increase in 2023 are:")
     print(departments_2023_sorted[departments_2023_sorted['department'].isin(departments_of_interest)].head(10))
 else:
     print("No departments meet all the criteria.")
