@@ -33,7 +33,7 @@ print("Departments with average price below the overall average price:")
 for department, avg_price in sorted_departments.items():
     print(f"{department}: {avg_price}")
 
-# From these departments, figure out which ones have seen a constant increase (from 2020 to 2021 and 2021 to 2022)
+# From these departments, figure out which ones have seen a constant increase (2018 to 2022)
 
 # Calculate the average price change year to year for each department
 
@@ -79,6 +79,12 @@ else:
     print("Among departments below the national average, housing prices did not increase in the following departments during either period.")
     print(sorted_decreased_departments)
     for department in sorted_decreased_departments:
+        print(f"\nPrices in {department}:")
+        department_data = df[df['department'] == department]
+        print(department_data[['year', 'average_price_per_year_department']])
+    print("Among departments below the national average, housing prices increased consistently in:")
+    print(sorted_departments[~sorted_departments.index.isin(sorted_decreased_departments)])
+    for department in sorted_departments[~sorted_departments.index.isin(sorted_decreased_departments)].index:
         print(f"\nPrices in {department}:")
         department_data = df[df['department'] == department]
         print(department_data[['year', 'average_price_per_year_department']])
@@ -143,7 +149,7 @@ departments_of_interest = sorted_departments.index.intersection(departments_2023
 departments_of_interest = [dep for dep in departments_of_interest if dep not in sorted_decreased_departments]                                           
 
 if not departments_2023_sorted[departments_2023_sorted['department'].isin(departments_of_interest)].empty:
-    print("Top 10 departments with the biggest increase in average price for 2023 among departments below the national average and with constant increase:")
+    print("The departments below the national average and with constant increase are:")
     print(departments_2023_sorted[departments_2023_sorted['department'].isin(departments_of_interest)].head(10))
 else:
     print("No departments meet all the criteria.")

@@ -1,4 +1,4 @@
-#Did the housing price increase in France from 2020 to 2022? What about individual departments?
+#Did the housing price increase in France from 2018 to 2022? What about individual departments?
 
 import pandas as pd
 import matplotlib.pyplot as plt
