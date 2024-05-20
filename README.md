@@ -133,9 +133,9 @@ plt.ylabel('Department')
 plt.tight_layout()
 plt.show()
 ```
-![Top5](assets\1_top5.png)
+![Top5](assets/1_top5.png)
 
-![Bottom5](assets\1_bottom5.png)
+![Bottom5](assets/1_bottom5.png)
 
 
 - Find the median, mean and the departments furthest from mean
@@ -199,7 +199,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
 ````
-![Deviation](assets\2_deviation_from_mean.png)
+![Deviation](assets/2_deviation_from_mean.png)
 
 
 - Checking if the housing prices increased consistently every year in France, and if this is true for all departments
@@ -298,7 +298,7 @@ plt.show()
 
 ```
 ![average_price_year](assets/3_average_price_year.png)
-![percent_change](assets\3_percent_change.png)
+![percent_change](assets/3_percent_change.png)
 
 ### Using Machine Learning to Predict Expected Increases in Price
 A Linear Regression model was implemented to predict housing prices for 2023 based on historical data. The model's predictions were evaluated using metrics such as Root Mean Squared Error (RMSE) and the coefficient of determination (R^2).
